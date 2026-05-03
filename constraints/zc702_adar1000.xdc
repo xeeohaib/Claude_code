@@ -25,16 +25,10 @@ set_property PACKAGE_PIN W17 [get_ports pmod1_sdo]
 set_property PACKAGE_PIN W5  [get_ports pmod1_sclk]
 set_property IOSTANDARD LVCMOS25 [get_ports {pmod1_csb pmod1_sdio pmod1_sdo pmod1_sclk}]
 
-# J62 (PMOD2) -- load and control to ADAR1000-EVALZ P3
+# J62 (PMOD2) -- only RX_LOAD used; tie TX_LOAD/TR/PA_ON to GND on the EVALZ.
 # J62.1 -> P3.7  RX_LOAD
-set_property PACKAGE_PIN V7  [get_ports pmod2_rx_load]
-# J62.2 -> P3.8  TX_LOAD (driven low)
-set_property PACKAGE_PIN W10 [get_ports pmod2_tx_load]
-# J62.3 -> P3.9  TR (driven low = RX mode)
-set_property PACKAGE_PIN P18 [get_ports pmod2_tr]
-# J62.4 -> P3.10 PA_ON (driven low)
-set_property PACKAGE_PIN P17 [get_ports pmod2_pa_on]
-set_property IOSTANDARD LVCMOS25 [get_ports {pmod2_rx_load pmod2_tx_load pmod2_tr pmod2_pa_on}]
+set_property PACKAGE_PIN V7 [get_ports pmod2_rx_load]
+set_property IOSTANDARD LVCMOS25 [get_ports pmod2_rx_load]
 
 # Unused-pin handling: drive pull-down on every unconstrained pin so floating
 # Pmod traces don't toggle on the eval board.

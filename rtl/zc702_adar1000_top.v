@@ -1,5 +1,7 @@
 // Top-level for ZC702 -> ADAR1000-EVALZ bring-up.
-// J63 (PMOD1) carries the 4-wire SPI; J62 (PMOD2) carries RX_LOAD and unused control lines tied low.
+// J63 (PMOD1) carries the 4-wire SPI; J62.1 carries RX_LOAD.
+// TX_LOAD, TR, PA_ON on the EVALZ are jumpered to GND on the eval-board side
+// (P3.5 or P3.11) so the FPGA doesn't burn pins driving constants.
 `default_nettype none
 
 module zc702_adar1000_top (
@@ -13,11 +15,8 @@ module zc702_adar1000_top (
     input  wire pmod1_sdo,       // W17 <- P3.3
     output wire pmod1_sclk,      // W5  -> P3.4
 
-    // J62 (PMOD2) -- load and control
-    output wire pmod2_rx_load,   // V7  -> P3.7
-    output wire pmod2_tx_load,   // W10 -> P3.8  (held low)
-    output wire pmod2_tr,        // P18 -> P3.9  (held low = RX mode)
-    output wire pmod2_pa_on      // P17 -> P3.10 (held low)
+    // J62 (PMOD2) -- only RX_LOAD used
+    output wire pmod2_rx_load    // V7  -> P3.7
 );
     wire seq_done;
     // 200 MHz differential -> single-ended -> /2 -> 100 MHz fabric clock
@@ -54,10 +53,6 @@ module zc702_adar1000_top (
     );
 
     (* keep = "true" *) wire seq_done_keep = seq_done;
-
-    assign pmod2_tx_load = 1'b0;
-    assign pmod2_tr      = 1'b0;
-    assign pmod2_pa_on   = 1'b0;
 endmodule
 
 `default_nettype wire

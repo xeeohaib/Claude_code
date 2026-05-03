@@ -34,9 +34,10 @@ ZC702 J62 (PMOD2) -> ADAR1000-EVALZ P3:
 | ZC702 pin | FPGA | Signal   | P3 pin |
 |-----------|------|----------|--------|
 | J62.1     | V7   | RX_LOAD  | P3.7   |
-| J62.2     | W10  | TX_LOAD  | P3.8   (held low) |
-| J62.3     | P18  | TR       | P3.9   (held low = RX) |
-| J62.4     | P17  | PA_ON    | P3.10  (held low) |
+
+On the ADAR1000-EVALZ side, jumper **P3.8 (TX_LOAD)**, **P3.9 (TR)** and
+**P3.10 (PA_ON)** to **P3.5 (GND)** or **P3.11 (GND)**. This keeps the chip in
+receive mode with PA off and avoids burning three FPGA pins to drive constants.
 
 Tie GND between the two boards. Leave EVALZ ADDR0/ADDR1 at their board straps
 (chip address 00).
